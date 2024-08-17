@@ -19,13 +19,30 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1024px-Googleplex_HQ_%28cropped%29.jpg">
 
   <style>
 
     /*
       misc styles, nothing to do with CSS variables
     */
+
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .h1 {
+      color: var(--base);
+    }
+
 
     body {
       text-align: center;
@@ -46,6 +63,17 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input');
+
+    //gets the suffix such as px needed to change the variable
+    function handleUpdate() {
+  const suffix = this.dataset.sizing || '';
+  document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+  console.log(this.name);
+}
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
