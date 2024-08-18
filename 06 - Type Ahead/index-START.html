@@ -18,6 +18,23 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const cities = [];
+//gets endpoint city list as an array and pushes it to data
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data))
+
+  //gets word we will type and passes in cities
+  function findMatches(wordToMatch, cities) {
+    return cities.filter(place => {
+      //figure if city or state matches what was searched
+      //g is for global and i is for insensative
+      const regex = new RegExp(wordToMatch, 'gi');
+      //filter will look for the state or city in the array
+      return place.city.match(regex) || place.state.match(regex)
+    })
+  }
+
 </script>
 </body>
 </html>
