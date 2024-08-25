@@ -26,10 +26,13 @@
   let isDrawing = false;
   let lastX = 0;
   let lastY = 0;
+  let hue = 0;
+  let direction = true;
 
   function draw(e) {
     if(!isDrawing) return; //stop the function when running when not moused down
     console.log(e);
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     //start from
     ctx.beginPath();
     //go to
@@ -37,6 +40,22 @@
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
     [lastX, lastY] = [e.offsetX, e.offsetY];
+    //increments the hue to change colour
+    hue++;
+    if(hue >= 360) {
+      hue = 0;   
+      //if width is greater than 100 count down.
+      //if its smaller than 1 count up
+    }
+    if (ctx.lineWidth >= 100 || ctx.lineWidth <=1) {
+      direction = !direction;
+    }
+    if(direction) {
+      ctx.lineWidth++;
+    } else {
+      ctx.linewidth--;
+    }
+    ctx.lineWidth++
   }
 
   canvas.addEventListener('mousedown', (e) => {
