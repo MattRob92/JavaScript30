@@ -19,9 +19,21 @@ function updateButton() {
     console.log('update the button');
 }
 
+function skip() {
+    //gets the amount to skip from the HTML
+    console.log('this.dataset.skip');
+    video.currentTime += parseFloat(this.dataset.skip);
+}
+
+function handleRangeUpdate() {
+    video[this.name] = this.value;
+}
+
 /* Hook up the Even Listerners*/
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 
 toggle.addEventListener('click', togglePlay);
+skiptButtons.forEach(button => button.addEventListener('click', skip));
+ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
